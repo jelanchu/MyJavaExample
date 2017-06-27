@@ -3,17 +3,17 @@ package jelan.httpclient;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 
-public class RequestQueue {
+public class HttpRequestQueue {
 	private static LinkedBlockingQueue<Object> queue = new LinkedBlockingQueue<Object>();
 
 	private static int trimType;
 	private static int maxSize;
 
-	public RequestQueue() {
+	public HttpRequestQueue() {
 		
 	}
 	
-	public RequestQueue(int maxSize, int trimType) {
+	public HttpRequestQueue(int maxSize, int trimType) {
 		this.maxSize = maxSize;
 		this.trimType = trimType;
 	}

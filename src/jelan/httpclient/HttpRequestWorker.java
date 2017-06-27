@@ -19,14 +19,14 @@ import org.apache.log4j.Logger;
 
 import com.google.common.base.Stopwatch;
 
-public class RequestWorker extends Thread {
-	private static final Logger logger = Logger.getLogger(RequestWorker.class);
-	private RequestQueue queue = null;
+public class HttpRequestWorker extends Thread {
+	private static final Logger logger = Logger.getLogger(HttpRequestWorker.class);
+	private HttpRequestQueue queue = null;
 	private boolean isActive = true;
 	private int numObjsPerSecond = 2;
 	
-	public RequestWorker() {
-		this.queue = new RequestQueue();
+	public HttpRequestWorker() {
+		this.queue = new HttpRequestQueue();
 	}
 
 	public void run() {
@@ -76,20 +76,16 @@ public class RequestWorker extends Thread {
 			MultipartEntityBuilder builder = MultipartEntityBuilder.create();
 
 			for (int i = 0; i < requests.size(); i++) {
-				// System.out.println("==>send license: " +
-				// requests.get(i).header.result.license);
-				Gson gson = new Gson();
-				StringBody headerStrBody = new StringBody(gson.toJson(requests.get(i).header), ContentType.TEXT_PLAIN);
-				builder.addPart("BodyInfo", headerStrBody);
+				builder.addPart("BodyInfo", ((HttpRequestDataObj)requests.get(i)).getStrBody());
 
-				String filename = requests.get(i).imageFilename;
-				FileBody body = new FileBody(new File(filename));
+				String filename = ((HttpRequestDataObj)requests.get(i)).imageFilename;
+				FileBody body = ((HttpRequestDataObj)requests.get(i)).getFileBody();
 				builder.addPart(filename, body);
 			}
 
 			HttpEntity reqEntity = builder.build();
 
-			response = new HttpClient().post(url, reqEntity);
+			response = new HttpClient().post(Config.HTTP_SERVER_URL, reqEntity);
 
 			if (response != null) {
 				if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
