@@ -21,6 +21,5 @@ public class HttpRequestDataObj {
 	public FileBody getFileBody() {
 		FileBody body = new FileBody(new File(imageFilename));
 		return body;
-		
 	}
 }
