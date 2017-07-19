@@ -10,6 +10,8 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Properties;
 
+import com.google.gson.Gson;
+
 public class Tools {
 	public static String readFile(String path, Charset encoding) throws IOException {
 		byte[] encoded = Files.readAllBytes(Paths.get(path));
@@ -46,5 +48,14 @@ public class Tools {
 		}
 
 		return prop;
+	}
+	
+	public static boolean isJSONValid(String jsonInString) {
+		try {
+			new Gson().fromJson(jsonInString, Object.class);
+			return true;
+		} catch (com.google.gson.JsonSyntaxException ex) {
+			return false;
+		}
 	}
 }

@@ -1,0 +1,4 @@
+# detector model name: openalpr, opencvmotion
+EdgeDetectorName=openalpr
+DoFindNext=false
+EnableCropPreview=false
