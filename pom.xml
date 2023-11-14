@@ -14,7 +14,7 @@
 <dependency>
     <groupId>commons-configuration</groupId>
     <artifactId>commons-configuration</artifactId>
-    <version>1.6</version>
+    <version>1.8</version>
 </dependency>
     <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
 <dependency>
